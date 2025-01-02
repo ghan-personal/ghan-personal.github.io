@@ -40,6 +40,9 @@
         <div class="hero-title">
         <div class="hero-sub-container-one">
             <span id="title-one">pioneer</span>
+            <span id="title-explore">explore !</span>
+            <span id="title-explore1">inspire !</span>
+            
         </div>
         <div class="hero-sub-container-two">
             <img
@@ -89,6 +92,12 @@
 
             
               </p>
+              <p>
+                Gary is an avid physics enthusiast and researcher, having worked on Hydrogen Fuel Cell Research with 
+                <a href="https://www.mrs.org/meetings-events/annual-meetings/archive/profile/Gary-Han-">Binghamton University</a>. 
+                He has recently shifted gears to computational astronomy and is continuing his research journey there.
+            </p>
+            
             </div>
           </div>
           <div class="about-us-col">
@@ -128,32 +137,20 @@
         <div class="products-grid-wrapper reveal">
           <div class="products-grid-container">
             <div class="grid-item">
-              <img src="assets/images/orange-slice.png" alt="" />
-              <p>Lemon A</p>
+              <p>PROJECT PLACEHOLDER</p>
             </div>
-            <div class="grid-item">
-              <img src="assets/images/orange-slice.png" alt="" />
-              <p>Lemon B</p>
-            </div>
-            <div class="grid-item">
-              <img src="assets/images/orange-slice.png" alt="" />
-              <p>Lemon C</p>
-            </div>
-            <div class="grid-item">
-              <img src="assets/images/orange-slice.png" alt="" />
-              <p>Lemon D</p>
-            </div>
-            <div class="grid-item">
-              <img src="assets/images/orange-slice.png" alt="" />
-              <p>Lemon E</p>
-            </div>
-            <div class="grid-item">
-              <img src="assets/images/orange-slice.png" alt="" />
-              <p>Lemon F</p>
-            </div>
+            
           </div>
         </div>
       </section>
+
+      <section id="blogs">
+        <div class="blog-row">
+          <a href="blog-1.html">general ideas (01.01.25)</a>
+          <p><br>more coming soon!</br></p>
+        </div>
+      </section>
+      
         <!-- Call To Action Section -->
 
       <section id="contact">
@@ -223,12 +220,16 @@
 
           let titleOne = document.getElementById("title-one");
           let titleTwo = document.getElementById("title-two");
-
+          let title_explore = document.getElementById("title-explore");
+          let title_explore1 = document.getElementById("title-explore1");
           window.addEventListener("scroll", function () {
             let value = window.scrollY;
 
             titleOne.style.right = value * 0.5 + "px";
+            title_explore1.style.left = value * 0.3 + "px";
             titleTwo.style.left = value * 0.5 + "px";
+            title_explore.style.left = value * 0.5 + "px"; 
+            
           });
         </script>
           
