@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gary Han — Open Projects</title>
+  <meta name="description" content="Open tooling and kits for science and music education. CometKit for exocomet hunting and BowLab v0.9 synthetic bow kit." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Gary Han — Open Projects" />
+  <meta property="og:description" content="CometKit (shallow-transit toolkit) and BowLab v0.9 (open synthetic bow kit)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://YOUR_GH_USERNAME.github.io/" />
+  <meta property="og:image" content="https://dummyimage.com/1200x630/0f172a/ffffff&text=Gary+Han+—+Open+Projects" />
+  <style>
+    :root {
+      --bg: #0b1220;           /* dark */
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --card: #0f172a;
+      --border: #1f2937;
+      --accent: #0ea5e9;
+      --accent-2: #22c55e;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f8fafc;        /* light */
+        --text: #0f172a;
+        --muted: #475569;
+        --card: #ffffff;
+        --border: #e2e8f0;
+        --shadow: 0 10px 24px rgba(2,6,23,.08);
+      }
+    }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header.nav { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.2) blur(8px); background: color-mix(in oklab, var(--bg) 80%, transparent); border-bottom: 1px solid var(--border); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
+    .brand .dot { width: 10px; height: 10px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent), transparent 70%); }
+    .nav-links { display: flex; gap: 18px; font-weight: 600; font-size: 14px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); padding: 10px 14px; border-radius: 14px; box-shadow: var(--shadow); cursor: pointer; text-decoration: none; white-space: nowrap; }
+    .btn:hover { border-color: color-mix(in srgb, var(--accent), var(--border) 70%); text-decoration: none; }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), #38bdf8 60%); color: #06121a; border-color: transparent; }
+    .btn.success { background: linear-gradient(135deg, var(--accent-2), #86efac 60%); color: #06240f; border-color: transparent; }
+    .hero { padding: 64px 24px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.15; margin: 0 0 10px; }
+    .subtitle { font-size: clamp(16px, 2.2vw, 18px); color: var(--muted); margin-bottom: 20px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 24px; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); font-size: 13px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
+    .grid { display: grid; gap: 18px; }
+    .grid.projects { grid-template-columns: repeat(12, 1fr); }
+    .col-7 { grid-column: span 7; }
+    .col-5 { grid-column: span 5; }
+    .section { padding: 28px 0; }
+    .section h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: .2px; }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .kpi { padding: 12px; border: 1px dashed var(--border); border-radius: 12px; text-align: center; }
+    .kpi b { display: block; font-size: 22px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 0; }
+    .tag { font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: color-mix(in srgb, var(--card), transparent 20%); color: var(--muted); }
+    .note { font-size: 13px; color: var(--muted); }
+    .footer { margin: 36px 0 60px; color: var(--muted); font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .pill { border-radius: 12px; padding: 6px 10px; border: 1px solid var(--border); background: var(--card); }
+    .divider { height: 1px; background: var(--border); margin: 30px 0; }
+    .list { margin: 10px 0 0 18px; }
+    .list li { margin: 6px 0; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    /* Responsive */
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid.projects { grid-template-columns: 1fr; }
+      .col-7, .col-5 { grid-column: auto; }
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .kpis { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav" aria-label="Main">
+    <div class="nav-inner wrap">
+      <div class="brand" aria-label="Brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Gary Han · Open Projects</span>
+      </div>
+      <nav class="nav-links" aria-label="Sections">
+        <a href="#projects">Projects</a>
+        <a href="#data">Data</a>
+        <a href="#contact">Contact</a>
+        <button id="themeToggle" class="btn" type="button" aria-label="Toggle theme">🌓<span class="sr-only">Toggle theme</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div>
+        <h1>Open tools → measurable impact.</h1>
+        <p class="subtitle">I build public, reproducible systems that turn individual work into community capability — from <strong>exocomet hunting</strong> (CometKit) to <strong>affordable instruments</strong> (BowLab).</p>
+        <div class="badge-row">
+          <div class="badge">📦 <span>1-page site · GitHub Pages ready</span></div>
+          <div class="badge" id="countdown" data-target-date="2025-10-01">⏳ <span>Days to target: <b class="mono" id="daysLeft">—</b></span></div>
+          <div class="badge">✅ <span>Everything below is live-link ready</span></div>
+        </div>
+        <div class="actions">
+          <a class="btn primary" href="#projects">See Projects</a>
+          <a class="btn" href="#data">Pilot Data</a>
+          <button class="btn" id="copyInstall" type="button">Copy pip install</button>
+        </div>
+        <p class="note">Change the target date in the countdown badge’s <span class="mono">data-target-date</span> attribute.</p>
+      </div>
+      <div class="card">
+        <h2 style="margin-top:0">Quick KPIs</h2>
+        <div class="kpis">
+          <div class="kpi"><b id="kpi-stars">0</b><span>GitHub ⭐ across projects</span></div>
+          <div class="kpi"><b id="kpi-downloads">0</b><span>PyPI downloads (30d)</span></div>
+          <div class="kpi"><b id="kpi-kits">0</b><span>BowLab kits assembled</span></div>
+        </div>
+        <p class="note">Edit KPI numbers directly in the markup below (look for <span class="mono">id="kpi-*"</span>) or wire them to a lightweight JSON in the future.</p>
+      </div>
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="section" aria-labelledby="projects-h">
+      <h2 id="projects-h">Projects</h2>
+      <p class="note">Each card is self-contained. Duplicate a <em>card</em> block to add a new project. Minimal CSS ensures consistent layout.</p>
+      <div class="grid projects">
+        <!-- CometKit Card -->
+        <article class="card col-7" aria-labelledby="ck-h">
+          <h3 id="ck-h" style="margin-top:0">CometKit — Shallow-Transit Toolkit</h3>
+          <p>Open-source utilities for detrending, gap-aware normalization, matched filters with asymmetric kernels, injection/recovery benchmarking, and quicklook plotting for exocomet/shallow-transit searches.</p>
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">Astronomy</span>
+            <span class="tag">Open Source</span>
+            <span class="tag">v1.0 target</span>
+          </div>
+          <ul class="list">
+            <li><strong>Core modules:</strong> detrend · normalize · matched_filter · inject · evaluate · plot</li>
+            <li><strong>Benchmark target:</strong> ≥70% recall @ 1% FPR on synthetic set</li>
+            <li><strong>Docs:</strong> 5‑min quickstart + 3 example notebooks (Kepler / TESS / Synthetic)</li>
+          </ul>
+          <div class="actions" aria-label="CometKit links">
+            <a class="btn" href="https://pypi.org/project/cometkit/" target="_blank" rel="noopener">PyPI</a>
+            <a class="btn" href="https://github.com/YOUR_GH_USERNAME/cometkit" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="#" aria-disabled="true">Methods & Benchmark (PDF)</a>
+          </div>
+          <p class="note">Badges update automatically once live:
+            <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/cometkit?style=flat"> 
+            <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/cometkit?style=flat"> 
+            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/YOUR_GH_USERNAME/cometkit?style=flat">
+          </p>
+        </article>
+
+        <!-- BowLab Card -->
+        <article class="card col-5" aria-labelledby="bl-h">
+          <h3 id="bl-h" style="margin-top:0">BowLab v0.9 — Open Synthetic Bow Kit</h3>
+          <p>Sub‑$60 printable kit + testing jigs and a 5‑measure protocol (stiffness, torsion, ring‑down Q, balance point, mass) for reproducible, student‑grade bows.</p>
+          <div class="tags">
+            <span class="tag">Music Tech</span>
+            <span class="tag">Education</span>
+            <span class="tag">Open Hardware</span>
+            <span class="tag">v0.9 release</span>
+          </div>
+          <ul class="list">
+            <li><strong>Acceptance bands:</strong> ±15–20% vs. reference bow (see protocol)</li>
+            <li><strong>Pilot goal:</strong> 10 kits, ≥80% within bands; ≥50 blind ratings</li>
+          </ul>
+          <div class="actions" aria-label="BowLab links">
+            <a class="btn" href="https://github.com/YOUR_GH_USERNAME/bowlab" target="_blank" rel="noopener">Release Pack</a>
+            <a class="btn" href="https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID" target="_blank" rel="noopener">Pilot Data (Sheet)</a>
+            <a class="btn" href="#" aria-disabled="true">Protocol (PDF)</a>
+          </div>
+          <p class="note">Badges:
+            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/YOUR_GH_USERNAME/bowlab?style=flat"> 
+            <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/YOUR_GH_USERNAME/bowlab?style=flat">
+          </p>
+        </article>
+      </div>
+
+      <!-- Template for new projects → duplicate and edit
+      <article class="card">
+        <h3>PROJECT TITLE</h3>
+        <p>Short 1–2 sentence description. Impact, audience, why it exists.</p>
+        <div class="tags">
+          <span class="tag">Domain</span><span class="tag">Tech</span><span class="tag">Stage</span>
+        </div>
+        <ul class="list">
+          <li><strong>Result:</strong> Quantified outcome here.</li>
+          <li><strong>Artifact:</strong> Paper / dataset / app link.</li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="#">Primary Link</a>
+          <a class="btn" href="#">Secondary</a>
+        </div>
+      </article>
+      -->
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- DATA / EMBEDS -->
+    <section id="data" class="section" aria-labelledby="data-h">
+      <h2 id="data-h">Pilot Data</h2>
+      <p class="note">Drop a public Google Sheet link below (File → Share → Anyone with link) to render data directly.</p>
+      <div class="card" style="padding:0; overflow:hidden">
+        <iframe title="BowLab Pilot Data" width="100%" height="420" frameborder="0" src="https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID/pubhtml?widget=true&headers=false"></iframe>
+      </div>
+    </section>
+
+    <div class="divider" role="separator" aria-hidden="true"></div>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section" aria-labelledby="contact-h">
+      <h2 id="contact-h">Contact</h2>
+      <div class="card">
+        <p>Interested in collaborating, mentoring students, or adopting the kit? Reach out:</p>
+        <div class="actions">
+          <a class="btn" href="mailto:YOUR_EMAIL@example.com">Email</a>
+          <a class="btn" href="https://github.com/YOUR_GH_USERNAME" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/gary-han-231170312/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+        </div>
+        <p class="note">Replace placeholders: <span class="mono">YOUR_GH_USERNAME</span>, <span class="mono">YOUR_GOOGLE_SHEET_ID</span>, and <span class="mono">YOUR_EMAIL</span>.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span class="pill">© <span id="year"></span> Gary Han</span>
+      <span class="pill">Built with vanilla HTML/CSS/JS · Deployed on GitHub Pages</span>
+    </footer>
+  </main>
+
+  <script>
+    // Theme toggle with localStorage
+    (function(){
+      const btn = document.getElementById('themeToggle');
+      const key = 'theme-preference';
+      const getPref = () => localStorage.getItem(key) || 'auto';
+      const apply = (pref) => {
+        document.documentElement.dataset.theme = pref;
+        if (pref === 'dark') {
+          document.documentElement.style.colorScheme = 'dark';
+        } else if (pref === 'light') {
+          document.documentElement.style.colorScheme = 'light';
+        } else {
+          document.documentElement.style.colorScheme = '';
+        }
+      };
+      const cycle = () => {
+        const cur = getPref();
+        const next = cur === 'auto' ? 'light' : cur === 'light' ? 'dark' : 'auto';
+        localStorage.setItem(key, next);
+        apply(next);
+        btn.title = `Theme: ${next}`;
+      };
+      apply(getPref());
+      btn.addEventListener('click', cycle);
+      btn.title = `Theme: ${getPref()}`;
+    })();
+
+    // Countdown logic
+    (function(){
+      const badge = document.getElementById('countdown');
+      if (!badge) return;
+      const span = document.getElementById('daysLeft');
+      const targetStr = badge.getAttribute('data-target-date');
+      const target = new Date(targetStr + 'T00:00:00');
+      if (isNaN(target)) { span.textContent = '—'; return; }
+      const now = new Date();
+      const ms = target - now;
+      const days = Math.max(0, Math.ceil(ms / (1000*60*60*24)));
+      span.textContent = days.toString();
+    })();
+
+    // Copy pip install command
+    (function(){
+      const btn = document.getElementById('copyInstall');
+      const cmd = 'pip install cometkit';
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(cmd);
+          btn.textContent = 'Copied: ' + cmd;
+          setTimeout(() => btn.textContent = 'Copy pip install', 1600);
+        } catch(e) {
+          alert('Copy failed. Command: ' + cmd);
+        }
+      });
+    })();
+
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Editable KPIs — set your real numbers here (or wire to JSON later)
+    document.getElementById('kpi-stars').textContent = '0';
+    document.getElementById('kpi-downloads').textContent = '0';
+    document.getElementById('kpi-kits').textContent = '0';
+  </script>
+</body>
+</html>
