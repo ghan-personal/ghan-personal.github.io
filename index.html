@@ -98,6 +98,8 @@
     .list li { margin: 6px 0; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
     .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    .subhead { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 12px 0 6px; }
+    .pdf-list { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; }
 
     /* Responsive */
     @media (max-width: 920px) {
@@ -233,8 +235,15 @@
           </ul>
           <div class="actions" aria-label="BowLab links">
             <a class="btn" href="https://github.com/hangary/BowLab" target="_blank" rel="noopener">Release Pack</a>
-            <a class="btn" href="https://docs.google.com/spreadsheets/d/YOUR_GOOGLE_SHEET_ID" target="_blank" rel="noopener">Pilot Data (Sheet)</a>
             <a class="btn" href="#" aria-disabled="true">Protocol (PDF)</a>
+          </div>
+          <div class="past" aria-label="Past iterations">
+            <h4 class="subhead">Past iterations (PDFs)</h4>
+            <ul class="pdf-list">
+              <li><a class="btn" href="https://ghan-personal.github.io/assets/bowlab/iteration-2025-08-10.pdf" target="_blank" rel="noopener">Iteration — 2025‑08‑10 (PDF)</a></li>
+              <li><a class="btn" href="https://ghan-personal.github.io/assets/bowlab/iteration-2025-08-05.pdf" target="_blank" rel="noopener">Iteration — 2025‑08‑05 (PDF)</a></li>
+            </ul>
+            <p class="note">Add more: place PDFs in <span class="mono">/assets/bowlab/</span> and duplicate a list item.</p>
           </div>
           <p class="note">Badges:
             <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/hangary/BowLab?style=flat"> 
@@ -261,8 +270,6 @@
       </article>
       -->
     </section>
-
-    <div class="divider" role="separator" aria-hidden="true"></div>
 
     <div class="divider" role="separator" aria-hidden="true"></div>
 
