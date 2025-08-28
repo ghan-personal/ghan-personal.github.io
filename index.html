@@ -1,360 +1,265 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gary Han — Open Projects</title>
-  <meta name="description" content="Open tooling and kits for science and music education. CometKit for exocomet hunting and BowLab v0.9 synthetic bow kit." />
-  <meta name="theme-color" content="#0a84ff" />
-  <!-- Open Graph -->
-  <meta property="og:title" content="Gary Han — Open Projects" />
-  <meta property="og:description" content="CometKit (shallow-transit toolkit) and BowLab v0.9 (open synthetic bow kit)." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ghan-personal.github.io/" />
-  <meta property="og:image" content="https://ghan-personal.github.io/assets/og.png" />
-  <style>
-    /* Apple-like, minimal, light-first palette with dark override */
-    :root {
-      --bg: #f5f5f7;         /* light background */
-      --text: #1d1d1f;       /* primary text */
-      --muted: #6e6e73;      /* secondary text */
-      --card: #ffffff;       /* surfaces */
-      --border: #d2d2d7;     /* separators */
-      --accent: #0a84ff;     /* system blue */
-      --accent-2: #34c759;   /* system green */
-      --shadow: 0 8px 24px rgba(0,0,0,.06);
-      --nav: rgba(255,255,255,.70); /* translucent nav */
-    }
-    :root[data-theme="dark"] {
-      --bg: #1c1c1e;
-      --text: #f5f5f7;
-      --muted: #a1a1a6;
-      --card: #2c2c2e;
-      --border: #3a3a3c;
-      --shadow: 0 12px 32px rgba(0,0,0,.35);
-      --nav: rgba(28,28,30,.70);
-    }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme]) {
-        --bg: #1c1c1e;
-        --text: #f5f5f7;
-        --muted: #a1a1a6;
-        --card: #2c2c2e;
-        --border: #3a3a3c;
-        --shadow: 0 12px 32px rgba(0,0,0,.35);
-        --nav: rgba(28,28,30,.70);
-      }
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BowLab — Accessible Music Through 3D Printing</title>
+<meta name="description" content="BowLab: A 3D‑printed, sub-$10, playable violin/viola bow prototype designed to increase accessibility to music education worldwide." />
+<meta property="og:title" content="BowLab — Accessible Music Through 3D Printing" />
+<meta property="og:description" content="If 3D‑printed violins exist, why not bows? BowLab’s prototype opens music to more students with affordable, sustainable design." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="assets/bow-hero.jpg" />
+<meta property="og:url" content="http://www.bowlab.site/" />
+<link rel="icon" href="assets/favicon.png" />
 
-    html, body { height: 100%; }
-    html { scroll-behavior: smooth; }
-    section { scroll-margin-top: 84px; }
-    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); line-height: 1.6; }
-    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px; }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    header.nav { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.2) blur(10px); background: var(--nav); border-bottom: 1px solid var(--border); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 24px; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .3px; }
-    .brand .logo { width: 26px; height: 26px; display: block; border-radius: 8px; box-shadow: 0 6px 18px rgba(10,132,255,.25); }
-    .nav-links { display: flex; gap: 18px; font-weight: 600; font-size: 14px; }
+<!-- Tailwind (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+brand: {
+50: '#f8f7f3', 100: '#f1efe8', 200: '#e4e0d2', 300: '#d6d2bf',
+400: '#bdb598', 500: '#9a9176', 600: '#7b725c', 700: '#5c5545',
+800: '#3e392f', 900: '#2b2720'
+}
+},
+boxShadow: {
+soft: '0 10px 25px rgba(0,0,0,0.08)'
+}
+}
+},
+darkMode: 'class'
+}
+</script>
+<style>
+html { scroll-behavior: smooth; }
+</style>
 
-    .btn { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--card); color: var(--text); padding: 10px 14px; border-radius: 12px; box-shadow: var(--shadow); cursor: pointer; text-decoration: none; white-space: nowrap; transition: transform .08s ease, box-shadow .2s ease, background .2s ease; }
-    .btn:hover { transform: translateY(-1px); text-decoration: none; }
-    .btn.primary { background: var(--accent); color: #fff; border-color: transparent; box-shadow: 0 6px 18px rgba(10,132,255,.25); }
-    .btn.primary:hover { box-shadow: 0 10px 24px rgba(10,132,255,.30); }
-    .btn.success { background: var(--accent-2); color: #06240f; border-color: transparent; }
 
-    .hero { padding: 64px 24px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; }
-    .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.15; margin: 0 0 10px; letter-spacing: -.2px; }
-    .subtitle { font-size: clamp(16px, 2.2vw, 18px); color: var(--muted); margin-bottom: 20px; }
-
-    .badge-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 24px; }
-    .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); font-size: 13px; }
-
-    .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
-    .grid { display: grid; gap: 18px; }
-    .grid.projects { grid-template-columns: repeat(12, 1fr); }
-    .col-7 { grid-column: span 7; }
-    .col-5 { grid-column: span 5; }
-    .section { padding: 28px 0; }
-    .section h2 { font-size: 22px; margin: 0 0 12px; letter-spacing: .2px; }
-
-    .kpis { display: grid; grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 12px; max-width: 520px; margin: 0 auto; }
-    .kpi { padding: 12px; border: 1px dashed var(--border); border-radius: 12px; text-align: center; }
-    .kpi b { display: block; font-size: 22px; }
-
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-
-    .tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 0; }
-    .tag { font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: rgba(0,0,0,.02); color: var(--muted); }
-
-    .note { font-size: 13px; color: var(--muted); }
-    .footer { margin: 36px 0 60px; color: var(--muted); font-size: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .pill { border-radius: 12px; padding: 6px 10px; border: 1px solid var(--border); background: var(--card); }
-    .divider { height: 1px; background: var(--border); margin: 30px 0; }
-    .list { margin: 10px 0 0 18px; }
-    .list li { margin: 6px 0; }
-    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-    .subhead { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 12px 0 6px; }
-    .pdf-list { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 8px; }
-
-    /* Responsive */
-    @media (max-width: 920px) {
-      .hero { grid-template-columns: 1fr; }
-      .grid.projects { grid-template-columns: 1fr; }
-      .col-7, .col-5 { grid-column: auto; }
-      .kpis { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 540px) {
-      .kpis { grid-template-columns: 1fr; }
-    }
-  </style>
 </head>
-<body>
-  <header class="nav" aria-label="Main">
-    <div class="nav-inner wrap">
-      <div class="brand" aria-label="Brand">
-        <svg class="logo" role="img" aria-label="GH logo" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a84ff"/><stop offset="1" stop-color="#34c759"/></linearGradient></defs><rect width="64" height="64" rx="14" fill="url(#g)"/><text x="50%" y="54%" text-anchor="middle" font-family="SF Pro Display, -apple-system, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">GH</text></svg>
-        <span>Gary Han · Open Projects</span>
-      </div>
-      <nav class="nav-links" aria-label="Sections">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        
-        <a href="#contact">Contact</a>
-        <button id="themeToggle" class="btn" type="button" aria-label="Toggle theme">🌓<span class="sr-only">Toggle theme</span></button>
-      </nav>
-    </div>
-  </header>
+<body class="bg-brand-50 text-gray-900 antialiased">
+<!-- Sticky Nav -->
+<header class="fixed inset-x-0 top-0 z-50 backdrop-blur bg-brand-50/90 border-b border-brand-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<a href="#top" class="flex items-center gap-2 font-semibold">
+<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="text-brand-700"><path d="M3 18l9-14 9 14H3z"/></svg>
+<span>BowLab</span>
+</a>
+<nav class="hidden md:flex items-center gap-6 text-sm">
+<a href="#problem" class="hover:text-brand-700">Problem</a>
+<a href="#solution" class="hover:text-brand-700">Solution</a>
+<a href="#how" class="hover:text-brand-700">How it works</a>
+<a href="#impact" class="hover:text-brand-700">Impact</a>
+<a href="#story" class="hover:text-brand-700">Our Story</a>
+<a href="#media" class="hover:text-brand-700">Media</a>
+<a href="#contact" class="hover:text-brand-700">Contact</a>
+<a href="assets/BowLab_PressKit.pdf" class="inline-flex items-center rounded-full bg-brand-700 px-3 py-1.5 text-white font-medium shadow-soft hover:bg-brand-800">Press Kit</a>
+</nav>
+<button id="mobileMenuBtn" class="md:hidden inline-flex items-center justify-center p-2 rounded-md border border-brand-200" aria-label="Open Menu">
+<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+</div>
+<!-- Mobile menu -->
+<div id="mobileMenu" class="md:hidden hidden border-t border-brand-100 bg-brand-50/95">
+<div class="px-4 py-3 flex flex-col gap-2 text-sm">
+<a href="#problem" class="py-2">Problem</a>
+<a href="#solution" class="py-2">Solution</a>
+<a href="#how" class="py-2">How it works</a>
+<a href="#impact" class="py-2">Impact</a>
+<a href="#story" class="py-2">Our Story</a>
+<a href="#media" class="py-2">Media</a>
+<a href="#contact" class="py-2">Contact</a>
+<a href="assets/BowLab_PressKit.pdf" class="py-2 text-brand-800 font-medium">Press Kit</a>
+</div>
+</div>
+</header>
 
-  <main class="wrap">
+   <main id="top" class="pt-24">
     <!-- HERO -->
-    <section class="hero" id="home">
-      <div>
-        <h1>Open tools → measurable impact.</h1>
-        <p class="subtitle">I’m building open, reproducible tools that <strong>democratize science and music</strong> — from <strong>exocomet hunting</strong> (CometKit) to <strong>affordable instruments</strong> (BowLab).</p>
-        <div class="badge-row">
-          <div class="badge">📦 <span>1-page site · GitHub Pages ready</span></div>
-          <div class="badge" id="countdown" data-target-date="2025-10-01">⏳ <span>Days to target: <b class="mono" id="daysLeft">—</b></span></div>
-          <div class="badge">✅ <span>Everything below is live-link ready</span></div>
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 -z-10 bg-gradient-to-br from-brand-50 via-white to-brand-100"></div>
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900"><a href="https://www.hovalabs.com/work/hovalin" target="_blank" class="text-blue-600 hover:underline">
+  If We Can 3D Print Violins, 
+</a>  Why Not Bows?</h1>
+          <p class="mt-4 text-lg text-gray-700">BowLab’s prototype brings the often‑overlooked violin bow into the age of accessible technology. With under $10 of material, we built a playable, modular, tension‑balanced bow designed to open music to more students around the world.</p>
+          <p class="mt-3 text-sm text-gray-600">Traditional Pernambuco bows inspire this project, but endangered wood is only part of the story. The bigger vision: democratizing access to quality tools for every musician.</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#impact" class="inline-flex items-center rounded-lg bg-brand-700 px-5 py-3 text-white font-semibold shadow-soft hover:bg-brand-800">See Prototype Results</a>
+            <a href="assets/BowLab_PressKit.pdf" class="inline-flex items-center rounded-lg px-5 py-3 ring-1 ring-inset ring-brand-300 hover:bg-brand-100">Download Press Kit</a>
+          </div>
         </div>
-        <div class="actions">
-          <a class="btn primary" href="#projects">See Projects</a>
-          <a class="btn" href="#about">About me</a>
-          
+        <div>
+          <div class="aspect-[3/4] w-full overflow-hidden rounded-2xl border border-brand-200 shadow-soft bg-white flex items-center justify-center">
+            <img src="assets/bow-hero.jpg" alt="BowLab prototype on wood background" class="h-full w-full object-cover"/>
+          </div>
         </div>
-        <p class="note">Change the target date in the countdown badge’s <span class="mono">data-target-date</span> attribute.</p>
-      </div>
-      <div class="card">
-        <h2 style="margin-top:0">Quick KPIs</h2>
-        <div class="kpis">
-          <div class="kpi"><b id="kpi-downloads">0</b><span>PyPI downloads (30d)</span></div>
-          <div class="kpi"><b id="kpi-kits">0</b><span>BowLab kits assembled</span></div>
-        </div>
-        <p class="note">Edit KPI numbers directly in the markup below (look for <span class="mono">id="kpi-*"</span>) or wire them to a lightweight JSON in the future.</p>
       </div>
     </section>
 
-    <div class="divider" role="separator" aria-hidden="true"></div>
-
-    <!-- ABOUT -->
-    <section id="about" class="section" aria-labelledby="about-h">
-      <h2 id="about-h">About</h2>
-      <div class="card">
-        <p><strong>Short bio (edit me):</strong> High‑school senior building open, reproducible systems at the intersection of astrophysics and music tech. Current focus: <em>CometKit</em> (shallow‑transit toolkit) and <em>BowLab v0.9</em> (open synthetic bow kit).</p>
-        <div class="tags">
-          <span class="tag">Open Source</span>
-          <span class="tag">Astronomy</span>
-          <span class="tag">Music Tech</span>
-          <span class="tag">Education</span>
-        </div>
-        <ul class="list">
-          <li><strong>Now:</strong> Shipping CometKit v1.0 and running the BowLab v0.9 pilot with quantified benchmarks.</li>
-          <li><strong>Previously:</strong> Discovered candidate exocomets in photometry; Juilliard Pre‑College violist; recognition in national science & arts programs (e.g., ISEF, YoungArts).</li>
-          <li><strong>Operating style:</strong> Public repos, measurable KPIs, and small, teachable kits so others can reproduce the work.</li>
+    <!-- PROBLEM -->
+    <section id="problem" class="py-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold">The Gap in Music Access</h2>
+        <p class="mt-4 text-gray-700">Instruments like 3D‑printed violins already make waves in classrooms. But bows remain expensive, fragile, and tied to endangered wood. Without affordable bows, access to string playing remains limited.</p>
+        <ul class="mt-6 grid sm:grid-cols-2 gap-4 text-gray-800 list-disc pl-5">
+          <li>High‑quality bows often cost $1,000–$10,000.</li>
+          <li>Students are forced to use low‑quality equipment that hinders progress.</li>
+          <li>Bow design has seen little innovation compared to instruments.</li>
+          <li>Pernambuco scarcity highlights the urgency, but the deeper challenge is access.</li>
         </ul>
-        <div class="actions">
-          <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
-          <a class="btn" href="https://www.linkedin.com/in/gary-han-231170312/" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="#" aria-disabled="true">Press kit (zip)</a>
-        </div>
-        <p class="note">Tip: replace this text with a 80–120 word bio; update the résumé/press‑kit links when ready.</p>
       </div>
     </section>
 
-    <div class="divider" role="separator" aria-hidden="true"></div>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="section" aria-labelledby="projects-h">
-      <h2 id="projects-h">Projects</h2>
-      <p class="note">Each card is self-contained. Duplicate a <em>card</em> block to add a new project. Minimal CSS ensures consistent layout.</p>
-      <div class="grid projects">
-        <!-- CometKit Card -->
-        <article class="card col-7" aria-labelledby="ck-h">
-          <h3 id="ck-h" style="margin-top:0">CometKit — Shallow-Transit Toolkit</h3>
-          <p>Open-source utilities for detrending, gap-aware normalization, matched filters with asymmetric kernels, injection/recovery benchmarking, and quicklook plotting for exocomet/shallow-transit searches.</p>
-          <div class="tags">
-            <span class="tag">Python</span>
-            <span class="tag">Astronomy</span>
-            <span class="tag">Open Source</span>
-            <span class="tag">v1.0 target</span>
+    <!-- SOLUTION -->
+    <section id="solution" class="py-20 bg-brand-100/40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-start">
+          <div>
+            <h2 class="text-3xl font-bold">The BowLab Answer</h2>
+            <p class="mt-4 text-gray-700">A 3D‑printed bow that works. By applying modular engineering and tension‑balanced geometry, BowLab offers a prototype any school or student could fabricate and play. Pernambuco remains a side note in our story: the true focus is accessibility.</p>
+            <div class="mt-6 grid sm:grid-cols-2 gap-4">
+              <div class="rounded-xl bg-white border border-brand-200 p-5 shadow-soft">
+                <h3 class="font-semibold">Modular segments</h3>
+                <p class="text-gray-700 mt-1">Interlocking pieces allow long bows to be printed on common machines.</p>
+              </div>
+              <div class="rounded-xl bg-white border border-brand-200 p-5 shadow-soft">
+                <h3 class="font-semibold">Tension‑balanced truss</h3>
+                <p class="text-gray-700 mt-1">Side string and internal geometry replicate stiffness and camber affordably.</p>
+              </div>
+              <div class="rounded-xl bg-white border border-brand-200 p-5 shadow-soft">
+                <h3 class="font-semibold">Rapid iteration</h3>
+                <p class="text-gray-700 mt-1">From CAD tweak to classroom‑ready bow in under a day.</p>
+              </div>
+              <div class="rounded-xl bg-white border border-brand-200 p-5 shadow-soft">
+                <h3 class="font-semibold">Accessible design</h3>
+                <p class="text-gray-700 mt-1">Affordable to fabricate, easy to distribute, open for collaboration.</p>
+              </div>
+            </div>
           </div>
-          <ul class="list">
-            <li><strong>Core modules:</strong> detrend · normalize · matched_filter · inject · evaluate · plot</li>
-            <li><strong>Benchmark target:</strong> ≥70% recall @ 1% FPR on synthetic set</li>
-            <li><strong>Docs:</strong> 5‑min quickstart + 3 example notebooks (Kepler / TESS / Synthetic)</li>
-          </ul>
-          <div class="actions" aria-label="CometKit links">
-            <a class="btn" href="https://pypi.org/project/cometkit/" target="_blank" rel="noopener">PyPI</a>
-            <a class="btn" href="https://github.com/hangary/CometKit" target="_blank" rel="noopener">GitHub</a>
-            <a class="btn" href="#" aria-disabled="true">Methods & Benchmark (PDF)</a>
+          <div class="space-y-4">
+            <div class="aspect-video overflow-hidden rounded-2xl border border-brand-200 bg-white shadow-soft flex items-center justify-center">
+              <video class="w-full h-full" src="assets/demo.mp4" controls poster="assets/video-poster.jpg"></video>
+            </div>
           </div>
-          <p class="note">Badges update automatically once live:
-            <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/cometkit?style=flat"> 
-            <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/cometkit?style=flat"> 
-            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/hangary/CometKit?style=flat">
-          </p>
-        </article>
-
-        <!-- BowLab Card -->
-        <article class="card col-5" aria-labelledby="bl-h">
-          <h3 id="bl-h" style="margin-top:0">BowLab v0.9 — Open Synthetic Bow Kit</h3>
-          <p>Sub‑$60 printable kit + testing jigs and a 5‑measure protocol (stiffness, torsion, ring‑down Q, balance point, mass) for reproducible, student‑grade bows.</p>
-          <div class="tags">
-            <span class="tag">Music Tech</span>
-            <span class="tag">Education</span>
-            <span class="tag">Open Hardware</span>
-            <span class="tag">v0.9 release</span>
-          </div>
-          <ul class="list">
-            <li><strong>Acceptance bands:</strong> ±15–20% vs. reference bow (see protocol)</li>
-            <li><strong>Pilot goal:</strong> 10 kits, ≥80% within bands; ≥50 blind ratings</li>
-          </ul>
-          <div class="actions" aria-label="BowLab links">
-            <a class="btn" href="https://github.com/hangary/BowLab" target="_blank" rel="noopener">Release Pack</a>
-            <a class="btn" href="#" aria-disabled="true">Protocol (PDF)</a>
-          </div>
-          <div class="past" aria-label="Past iterations">
-            <h4 class="subhead">Past iterations (PDFs)</h4>
-            <ul class="pdf-list">
-              <li><a class="btn" href="https://ghan-personal.github.io/assets/bowlab/iteration-2025-08-10.pdf" target="_blank" rel="noopener">Iteration — 2025‑08‑10 (PDF)</a></li>
-              <li><a class="btn" href="https://ghan-personal.github.io/assets/bowlab/iteration-2025-08-05.pdf" target="_blank" rel="noopener">Iteration — 2025‑08‑05 (PDF)</a></li>
-            </ul>
-            <p class="note">Add more: place PDFs in <span class="mono">/assets/bowlab/</span> and duplicate a list item.</p>
-          </div>
-          <p class="note">Badges:
-            <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/hangary/BowLab?style=flat"> 
-            <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/hangary/BowLab?style=flat">
-          </p>
-        </article>
+        </div>
       </div>
-
-      <!-- Template for new projects → duplicate and edit
-      <article class="card">
-        <h3>PROJECT TITLE</h3>
-        <p>Short 1–2 sentence description. Impact, audience, why it exists.</p>
-        <div class="tags">
-          <span class="tag">Domain</span><span class="tag">Tech</span><span class="tag">Stage</span>
-        </div>
-        <ul class="list">
-          <li><strong>Result:</strong> Quantified outcome here.</li>
-          <li><strong>Artifact:</strong> Paper / dataset / app link.</li>
-        </ul>
-        <div class="actions">
-          <a class="btn" href="#">Primary Link</a>
-          <a class="btn" href="#">Secondary</a>
-        </div>
-      </article>
-      -->
     </section>
 
-    <div class="divider" role="separator" aria-hidden="true"></div>
+    <!-- HOW IT WORKS -->
+    <section id="how" class="py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold">How It Works</h2>
+        <div class="mt-8 grid md:grid-cols-4 gap-6">
+          <!-- Step cards -->
+          <div class="rounded-xl border border-brand-200 p-6 shadow-soft bg-white">
+            <span class="text-sm font-medium text-brand-800">01</span>
+            <h3 class="mt-1 font-semibold">CAD &amp; Simulation</h3>
+            <p class="mt-1 text-gray-700">Beam and truss parameters set target stiffness and camber.</p>
+          </div>
+          <div class="rounded-xl border border-brand-200 p-6 shadow-soft bg-white">
+            <span class="text-sm font-medium text-brand-800">02</span>
+            <h3 class="mt-1 font-semibold">3D Printing</h3>
+            <p class="mt-1 text-gray-700">Consumer FDM printer with tuned shells and sparse infill.</p>
+          </div>
+          <div class="rounded-xl border border-brand-200 p-6 shadow-soft bg-white">
+            <span class="text-sm font-medium text-brand-800">03</span>
+            <h3 class="mt-1 font-semibold">Tension Setup</h3>
+            <p class="mt-1 text-gray-700">Lacing and micro‑adjustments tune dynamic response.</p>
+          </div>
+          <div class="rounded-xl border border-brand-200 p-6 shadow-soft bg-white">
+            <span class="text-sm font-medium text-brand-800">04</span>
+            <h3 class="mt-1 font-semibold">Play‑test &amp; Iterate</h3>
+            <p class="mt-1 text-gray-700">Feedback loops guide geometry updates in hours, not weeks.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACT / KPIs -->
+    <section id="impact" class="py-20 bg-brand-100/40">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold">Impact</h2>
+        <p class="mt-4 text-gray-700">This prototype proves that bows don’t have to be the barrier. With sub‑$10 costs and classroom‑ready strength, BowLab can expand access to music education worldwide.</p>
+        <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="rounded-2xl bg-white border border-brand-200 p-6 shadow-soft">
+            <p class="text-sm text-gray-500">Cost</p>
+            <p class="mt-1 text-3xl font-extrabold">&lt;$10</p>
+            <p class="mt-2 text-gray-700">Cheaper than a box of strings, enabling true accessibility.</p>
+          </div>
+          <div class="rounded-2xl bg-white border border-brand-200 p-6 shadow-soft">
+            <p class="text-sm text-gray-500">Weight</p>
+            <p class="mt-1 text-3xl font-extrabold">98 g</p>
+            <p class="mt-2 text-gray-700">Comparable to many student and intermediate bows.</p>
+          </div>
+          <div class="rounded-2xl bg-white border border-brand-200 p-6 shadow-soft">
+            <p class="text-sm text-gray-500">Iteration</p>
+            <p class="mt-1 text-3xl font-extrabold">&lt;24 h</p>
+            <p class="mt-2 text-gray-700">From design to playable classroom prototype.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- OUR STORY -->
+<section id="story" class="py-20">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8 items-center">
+<div class="md:col-span-1 flex justify-center">
+<div class="w-40 h-40 rounded-full overflow-hidden border border-brand-200 shadow-soft bg-white flex items-center justify-center">
+<img src="assets/headshot.jpg" alt="Founder headshot" class="w-full h-full object-cover"/>
+</div>
+</div>
+<div class="md:col-span-2">
+<h2 class="text-3xl font-bold">Our Story</h2>
+<p class="mt-4 text-gray-700">Hey! As a violist and tinkerer, I saw students around me were still playing on standard, expensive bows while 3D-printed violins were making headlines. The idea was simple: if we can print the instrument, why not the bow?</p>
+<p class="mt-3 text-gray-700">With the support of bowmaker mentors and inspired by the urgency of access, I started BowLab to reimagine the bow as an affordable, reproducible, and sustainable tool. Every prototype brings us closer to a world where no student is held back by the cost of their equipment.</p>
+</div>
+</div>
+</section>
+
+    <!-- MEDIA / DOWNLOADS -->
+    <section id="media" class="py-20">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="md:flex md:items-center md:justify-between">
+          <h2 class="text-3xl font-bold">Media</h2>
+          <a href="assets/BowLab_PressKit.zip" class="inline-flex items-center rounded-lg bg-brand-700 px-4 py-2 text-white font-semibold shadow-soft hover:bg-brand-800">Download High‑Res Pack</a>
+        </div>
+        <div class="mt-8 grid md:grid-cols-3 gap-6">
+          <img src="assets/gallery-1.jpg" alt="Prototype on table" class="rounded-xl border border-brand-200 object-cover aspect-[4/3]" />
+          <img src="assets/gallery-2.jpg" alt="Close‑up of truss" class="rounded-xl border border-brand-200 object-cover aspect-[4/3]" />
+          <img src="assets/gallery-3.jpg" alt="Play‑testing" class="rounded-xl border border-brand-200 object-cover aspect-[4/3]" />
+        </div>
+      </div>
+    </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section" aria-labelledby="contact-h">
-      <h2 id="contact-h">Contact</h2>
-      <div class="card">
-        <p>Interested in collaborating, mentoring students, or adopting the kit? Reach out:</p>
-        <div class="actions">
-          <a class="btn" href="mailto:ghan_personal@outlook.com">Email</a>
-          <a class="btn" href="https://github.com/hangary" target="_blank" rel="noopener" aria-label="GitHub profile">GitHub</a>
-          <a class="btn" href="https://www.linkedin.com/in/gary-han-231170312/" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
-        </div>
-        <p class="note">Replace placeholders: <span class="mono">hangary</span>, <span class="mono">YOUR_GOOGLE_SHEET_ID</span>, and <span class="mono">YOUR_EMAIL</span>.</p>
+    <section id="contact" class="py-20 bg-brand-900 text-brand-50">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold">Join Us</h2>
+        <p class="mt-3 text-brand-200">If 3D‑printed violins can change music classrooms, then 3D‑printed bows can too. Let’s partner to expand access to every student, everywhere.</p>
       </div>
     </section>
-
-    <footer class="footer">
-      <span class="pill">© <span id="year"></span> Gary Han</span>
-      <span class="pill">Built with vanilla HTML/CSS/JS · Deployed on GitHub Pages</span>
-    </footer>
   </main>
 
-  <script>
-    // Theme toggle with localStorage (auto ↔ light ↔ dark) and proper CSS variable switching
-    (function(){
-      const btn = document.getElementById('themeToggle');
-      if (!btn) return;
-      const KEY = 'theme-preference';
+<footer class="py-8 bg-brand-50">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-600 flex flex-col sm:flex-row items-center justify-between gap-2">
+<p>© <span id="year"></span> BowLab. All rights reserved.</p>
+<p>Prototype device. Metrics are preliminary.</p>
+<p>
+<a href="https://www.linkedin.com/in/your-profile" target="_blank" class="text-brand-700 hover:underline">Connect on LinkedIn</a>
+</p>
+</div>
+</footer>
 
-      const apply = (pref) => {
-        if (pref === 'dark') {
-          document.documentElement.dataset.theme = 'dark';
-          document.documentElement.style.colorScheme = 'dark';
-          btn.textContent = '🌙';
-          btn.title = 'Theme: dark';
-        } else if (pref === 'light') {
-          document.documentElement.dataset.theme = 'light';
-          document.documentElement.style.colorScheme = 'light';
-          btn.textContent = '☀︎';
-          btn.title = 'Theme: light';
-        } else { // auto
-          delete document.documentElement.dataset.theme;
-          document.documentElement.style.colorScheme = '';
-          btn.textContent = '🌓';
-          btn.title = 'Theme: auto';
-        }
-      };
 
-      const get = () => localStorage.getItem(KEY) || 'auto';
-      const set = (pref) => { localStorage.setItem(KEY, pref); apply(pref); };
-      const cycle = () => { const cur = get(); const next = cur === 'auto' ? 'light' : (cur === 'light' ? 'dark' : 'auto'); set(next); };
-
-      // React to OS theme changes when in auto mode
-      const mql = window.matchMedia('(prefers-color-scheme: dark)');
-      if (mql && mql.addEventListener) {
-        mql.addEventListener('change', () => { if (get() === 'auto') apply('auto'); });
-      }
-
-      apply(get());
-      btn.addEventListener('click', cycle);
-    })();
-
-    // Countdown logic
-    (function(){
-      const badge = document.getElementById('countdown');
-      if (!badge) return;
-      const span = document.getElementById('daysLeft');
-      const targetStr = badge.getAttribute('data-target-date');
-      const target = new Date(targetStr + 'T00:00:00');
-      if (isNaN(target)) { span.textContent = '—'; return; }
-      const now = new Date();
-      const ms = target - now;
-      const days = Math.max(0, Math.ceil(ms / (1000*60*60*24)));
-      span.textContent = days.toString();
-    })();
-
-    
-
-    // Set year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Editable KPIs — set your real numbers here (or wire to JSON later)
-    document.getElementById('kpi-downloads').textContent = '0';
-    document.getElementById('kpi-kits').textContent = '0';
-  </script>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
+
